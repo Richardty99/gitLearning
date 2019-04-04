@@ -1,0 +1,11 @@
+server:
+   port: 8080
+
+spring:
+    datasource:
+         name: demo_db
+         url: jdbc:mysql://127.0.0.1:3306/demo_db
+         username: root123
+         password: root123
+         driver-class-name: com.mysql.cj.jdbc.Driver
+

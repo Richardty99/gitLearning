@@ -15,4 +15,8 @@ public class TestController {
     public String Test(){
         return "Hello World";
     }
+    @RequestMapping(method = RequestMethod.GET,produces = "application/json;charset=UTF-8",value = "/login")
+    public String Login(){
+        return "Login.html";
+    }
 }

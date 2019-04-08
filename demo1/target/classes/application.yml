@@ -2,17 +2,67 @@ server:
    port: 8080
 
 spring:
+  #数据源配置
     datasource:
          name: demo_db
-         url: jdbc:mysql://127.0.0.1:3306/demo_db?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true&failOverReadOnly=false&useOldAliasMetadataBehavior=true
+         url: jdbc:mysql://192.168.0.113:3307/demo_db?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true&failOverReadOnly=false&useOldAliasMetadataBehavior=true
          username: richardty
          password: 8888
          driver-class-name: com.mysql.cj.jdbc.Driver
+         #使用druid数据库连接池
+         type: com.alibaba.druid.pool.DruidDataSource
+         druid:
+         #监控平台统计拦截的filters
+           filters: stat
+          #初始化连接数/最小/最大
+           initial-size: 2
+           min-idle: 2
+           max-active: 20
+          #获取连接等待时间(毫秒) 当连接数大于max-active时 就需要等待释放，超过就会报异常
+           max-wait: 6000
+          #间隔多久进行一次检测，检测需要关闭的空闲连接
+           time-between-eviction-runs-millis: 60000
+          #一个连接在池中最小生存的时间
+           min-evictable-idle-time-millis: 300000
+          #检测连接的可用性
+           validation-query: SELECT count(*) from tbl_user
+          #定时检测 连接空闲的时间大于timeBetweenEvictionRunsMillis设置的时间检测 不影响性能
+           test-while-idle: true
+          #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+           test-on-borrow: false
+          #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+           test-on-return: false
+          #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+           pool-prepared-statements: false
+           max-pool-prepared-statement-per-connection-size: 20
+          # 通过connectProperties属性来打开mergeSql功能；慢SQL记录 没看
 
-    thymeleaf:
-            cache: false
+
+  #视图层控制 用mvc访问templates下的html
+    mvc:
+     view:
+      prefix: classpth:/templates/
+      suffix: .html
+     static-path-pattern: /static/**
 
 #mybatis:
 #  mapper-locations: classpath:mapper/*.xml
 #  type-aliases-package: com.example.demo.pojo
+
+
+#页面热加载,关闭缓存
+    thymeleaf:
+        cache: false
+        mode: HTML5
+        encoding: utf-8
+        servlet:
+          content-type: text/html
+
+#pagehelper 分页
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+    row-bounds-with-count: true
 

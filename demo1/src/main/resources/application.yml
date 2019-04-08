@@ -5,7 +5,7 @@ spring:
   #数据源配置
     datasource:
          name: demo_db
-         url: jdbc:mysql://127.0.0.1:3306/demo_db?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true&failOverReadOnly=false&useOldAliasMetadataBehavior=true
+         url: jdbc:mysql://192.168.0.113:3307/demo_db?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true&failOverReadOnly=false&useOldAliasMetadataBehavior=true
          username: richardty
          password: 8888
          driver-class-name: com.mysql.cj.jdbc.Driver
@@ -35,9 +35,9 @@ spring:
           #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
            pool-prepared-statements: false
            max-pool-prepared-statement-per-connection-size: 20
+          # 通过connectProperties属性来打开mergeSql功能；慢SQL记录 没看
 
-           # 通过connectProperties属性来打开mergeSql功能；慢SQL记录 没看
-          connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
   #视图层控制 用mvc访问templates下的html
     mvc:
      view:
@@ -57,10 +57,6 @@ spring:
         encoding: utf-8
         servlet:
           content-type: text/html
-
-
-
-
 
 #pagehelper 分页
 pagehelper:

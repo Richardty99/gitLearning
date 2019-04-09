@@ -44,6 +44,18 @@
     from tbl_user
     where account=#{account}
   </select>
+  <!--分页查询所有用户-->
+  <select id="selectUser" resultMap="UserMap" parameterType="com.example.demo.base.pojo.QueryParams">
+    select * from tbl_user
+    <if test="where !=null ">
+    where ${where}
+    </if>
+    order by
+    <if test="order !=null ">
+      ${order},
+    </if>
+    create_time desc
+  </select>
   <!--软删除用户-->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_user

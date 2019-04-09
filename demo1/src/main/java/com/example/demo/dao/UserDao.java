@@ -1,7 +1,10 @@
 package com.example.demo.dao;
 
+import com.example.demo.base.pojo.QueryParams;
 import com.example.demo.pojo.User;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserDao {
     int deleteByPrimaryKey(Integer userId);
@@ -18,5 +21,8 @@ public interface UserDao {
 
     int deleteUserInIds(String userIds);
 
-    User selectUserByAccount(@Param("account")String account );
+    User selectUserByAccount(@Param("account")String account);
+
+    List<User> selectUser(QueryParams queryParams);
+
 }

@@ -1249,7 +1249,7 @@
     </column>
     <column id="298" parent="277" name="is_deleted">
       <Position>21</Position>
-      <Comment>是否删除 0 都能看到，1 未删除的，2删除的</Comment>
+      <Comment>是否删除 ，1 删除的，0未删除的</Comment>
       <DataType>tinyint(3) unsigned zerofill|0s</DataType>
       <DefaultExpression>&apos;000&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>

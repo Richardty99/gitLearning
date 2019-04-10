@@ -26,6 +26,6 @@ public class UserserviceImpl implements UserService {
         PageHelper.startPage(requestModel.getQueryParams().getCurr_page(),requestModel.getQueryParams().getPage_size());
         List<User> list=userDao.selectUser(requestModel.getQueryParams());
         PageInfo pageInfo=new PageInfo(list);
-        requestModel.setData(list);
+        requestModel.setData(pageInfo);
     }
 }

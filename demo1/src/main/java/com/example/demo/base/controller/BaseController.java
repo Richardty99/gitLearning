@@ -1,5 +1,6 @@
 package com.example.demo.base.controller;
 
+import com.example.demo.base.BaseContants;
 import com.example.demo.pojo.User;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +32,8 @@ public abstract class BaseController {
           * @date: 2019/4/9 16:27
           */
          protected User getSessionUser()throws Exception{
-             User user=(User)session.getAttribute("login_user");
+             User user=(User)session.getAttribute(BaseContants.LOGIN_USER);
+
              if (user==null){
                  throw new Exception("未登陆");
              }

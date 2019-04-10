@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.base.common.Result;
+import com.example.demo.base.controller.BaseController;
+import com.example.demo.base.pojo.RequestModel;
 import com.example.demo.pojo.User;
 import com.example.demo.service.LoginService;
 import io.swagger.annotations.Api;
@@ -19,13 +22,18 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "登陆接口")
 @RestController
 @RequestMapping(value = "/login")
-public class LoginController {
+public class LoginController extends BaseController {
 
     @Autowired
     private LoginService loginService;
 
-    public ResponseEntity login(String account, String password){
-
-      return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<RequestModel> login(RequestModel<User> requestModel, User user) {
+        try {
+            loginService.login(requestModel, user);
+          //  session.setAttribute();
+            return Result.getSure(requestModel);
+        } catch (Exception ex) {
+            return Result.getError(requestModel);
+        }
     }
 }

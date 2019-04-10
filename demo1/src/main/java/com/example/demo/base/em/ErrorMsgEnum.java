@@ -14,6 +14,7 @@ import lombok.Setter;
 public enum  ErrorMsgEnum {
     /*枚举
      */
+    NO_PERMISSIONS(401,"权限不足"),
     NULL_ACCOUNT(1000,"账号不能为空"),
     NULL_PASSWROD(1001,"密码不能为空"),
     NO_ACCOUNT(1002,"账号不存在"),
@@ -22,9 +23,9 @@ public enum  ErrorMsgEnum {
     ERROR_PAGE(1005,"分页查询失败");
 
     @ApiModelProperty(value = "状态码")
-    int code;
+    public  int code;
     @ApiModelProperty(value = "信息")
-    String msg;
+    public  String msg;
 
     ErrorMsgEnum(int code,String msg){
         this.code=code;

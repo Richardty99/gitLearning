@@ -10,5 +10,5 @@ import com.example.demo.pojo.User;
  */
 public interface LoginService {
 
-    void login(RequestModel requestModel, User user)throws Exception;
+    void login(RequestModel<User> requestModel,User user)throws Exception;
 }

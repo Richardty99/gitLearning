@@ -25,17 +25,10 @@ public class Result<T> {
      * @auther: HX001
      * @date: 2019/4/9 11:11
      */
-    public static<T> ResponseEntity<RequestModel<T>> getPage(RequestModel requestModel)throws Exception{
-       if (requestModel.getData()==null){
-           return null;
-       }else {
+    public static<T> ResponseEntity<RequestModel> getPage(RequestModel requestModel){
            requestModel.setResultCode(200);
            requestModel.setMessage("分页查询成功");
-           return new ResponseEntity<RequestModel<T>>(requestModel,HttpStatus.OK);
-
-       }
-
-
+           return new ResponseEntity<RequestModel>(requestModel,HttpStatus.OK);
 
     }
     /**
@@ -48,13 +41,28 @@ public class Result<T> {
      * @date: 2019/4/9 17:01
      */
 
-    public static<T> ResponseEntity<RequestModel<T>> getPageError(int code,String msg)throws Exception{
-        RequestModel<T> requestModel=new RequestModel<T>();
-        requestModel.setMessage(msg);
-        requestModel.setResultCode(code);
+    public static<T> ResponseEntity<RequestModel> getError(RequestModel requestModel){
 
-        return new ResponseEntity<RequestModel<T>>(requestModel,HttpStatus.INTERNAL_SERVER_ERROR);
+
+        return new ResponseEntity<RequestModel>(requestModel,HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
+
+    /**
+     *
+     * 功能描述:
+     *
+     * @param: get请求成功
+     * @return:
+     * @auther: HX001
+     * @date: 2019/4/10 15:15
+     */
+      public static<T> ResponseEntity<RequestModel> getSure(RequestModel<T> requestModel){
+          requestModel.setResultCode(200);
+          requestModel.setMessage("成功");
+          return  new ResponseEntity<RequestModel>(requestModel,HttpStatus.OK);
+
+      }
+
 
 }

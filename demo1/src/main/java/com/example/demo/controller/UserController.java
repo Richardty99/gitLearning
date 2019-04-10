@@ -6,10 +6,12 @@ import com.example.demo.base.em.ErrorMsgEnum;
 import com.example.demo.base.pojo.RequestModel;
 import com.example.demo.pojo.User;
 import com.example.demo.service.UserService;
-import io.swagger.annotations.Api;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -25,15 +27,19 @@ public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
-    public ResponseEntity<RequestModel<User>> selectPageUser(RequestModel requestModel)throws Exception{
+    @ApiOperation(value = "分页查询所有用户",httpMethod = "GET",response = User.class)
+    @ApiResponses({
+            @ApiResponse(code =200,message = "操作成功",response = RequestModel.class),
+    })
+    @RequestMapping(path = "/select/page/",method = RequestMethod.GET)
+    public ResponseEntity<RequestModel> selectPageUser(RequestModel requestModel){
         try{
             userService.selectUser(requestModel);
             return Result.getPage(requestModel);
 
         }catch (Exception ex){
 
-                return Result.getPageError(ErrorMsgEnum.ERROR_PAGE.getCode(), ErrorMsgEnum.ERROR_PAGE.getMsg());
-
+            return Result.getError(requestModel);
 
         }
     }

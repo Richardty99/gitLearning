@@ -21,7 +21,7 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public void login(RequestModel requestModel, User user) throws Exception {
+    public void login(RequestModel<User> requestModel, User user) throws Exception {
         User oldUser=userDao.selectUserByAccount(user.getAccount());
         if (oldUser==null){
             requestModel.setResultCode(ErrorMsgEnum.NO_ACCOUNT.getCode());

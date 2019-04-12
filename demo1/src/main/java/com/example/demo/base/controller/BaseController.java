@@ -1,7 +1,8 @@
 package com.example.demo.base.controller;
 
-import com.example.demo.base.BaseContants;
+import com.example.demo.base.contants.BaseContants;
 import com.example.demo.pojo.User;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,14 @@ public abstract class BaseController {
          protected HttpServletRequest request;
          protected HttpServletResponse response;
          protected HttpSession session;
+
+
+         @InitBinder
+         public void initHttpParam(HttpServletRequest req,HttpServletResponse res){
+             request=req;
+             response=res;
+             session=req.getSession();
+         }
 
 
 

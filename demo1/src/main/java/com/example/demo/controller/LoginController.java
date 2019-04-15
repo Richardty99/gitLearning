@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.base.common.Result;
+import com.example.demo.base.contants.BaseContants;
 import com.example.demo.base.controller.BaseController;
 import com.example.demo.base.pojo.RequestModel;
 import com.example.demo.pojo.User;
@@ -27,13 +28,11 @@ public class LoginController extends BaseController {
     @Autowired
     private LoginService loginService;
 
-    public ResponseEntity<RequestModel> login(RequestModel<User> requestModel, User user) {
-        try {
+    public ResponseEntity<RequestModel> login(RequestModel<User> requestModel, User user)throws Exception {
+
             loginService.login(requestModel, user);
-          //  session.setAttribute();
+            session.setAttribute(BaseContants.LOGIN_USER,requestModel.getData());
             return Result.getSure(requestModel);
-        } catch (Exception ex) {
-            return Result.getError(requestModel);
-        }
+
     }
 }

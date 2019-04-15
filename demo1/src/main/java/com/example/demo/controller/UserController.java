@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.base.common.Result;
 import com.example.demo.base.controller.BaseController;
 import com.example.demo.base.em.ErrorMsgEnum;
+import com.example.demo.base.exception.BusinessException;
 import com.example.demo.base.pojo.RequestModel;
 import com.example.demo.pojo.User;
 import com.example.demo.service.UserService;
@@ -34,16 +35,12 @@ public class UserController extends BaseController {
             @ApiResponse(code =200,message = "操作成功",response = RequestModel.class),
     })
     @RequestMapping(path = "/select/page/",method = RequestMethod.GET)
-    public ResponseEntity<RequestModel> selectPageUser(RequestModel requestModel){
-        try{
+    public ResponseEntity<RequestModel> selectPageUser(RequestModel requestModel)throws Exception{
+
             userService.selectUser(requestModel);
             return Result.getPage(requestModel);
 
-        }catch (Exception ex){
 
-            return Result.getError(requestModel);
-
-        }
     }
 
 }

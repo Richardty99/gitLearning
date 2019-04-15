@@ -9,7 +9,6 @@
     <appenders>
         <!--这个输出控制台的配置-->
         <console name="Console" target="SYSTEM_OUT">
-
             <!--ThresholdFilter指定日志消息的输出最低层次-->
             <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
             <!--输出日志的格式-->
@@ -65,8 +64,49 @@
         </RollingFile>
 
     </appenders>
-    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
     <loggers>
+        <!-- name可以指定包名或具体的类；additivity如果指定true，则root logger也会生效，相同日志会输出两次;false，则只有当前日志文件输出 -->
+        <!-- 借据插入接口日志 -->
+        <logger level="info" name="insertCreditBill" additivity="false">
+            <appender-ref ref="insertCreditBillLog" />
+        </logger>
+
+        <!-- 下面是打印通过log4j2打印出mybatis语句的配置-->
+        <logger name="com.example.demo.dao">
+            <level>DEBUG</level>
+        </logger>
+        <logger name="com.springframework">
+            <level>DEBUG</level>
+        </logger>
+        <logger name="com.mybatis" additivity="true">
+            <level>DEBUG</level>
+        </logger>
+        <logger name="com.mybatis.common.jdbc.SimpleDataSource" additivity="true">
+            <level>DEBUG</level>
+        </logger>
+        <logger name="com.mybatis.common.jdbc.ScriptRunner" additivity="true">
+            <level>DEBUG</level>
+        </logger>
+        <logger name="com.mybatis.sqlmap.engine.impl.SqlMapClientDelegate" additivity="true">
+            <level>DEBUG</level>
+        </logger>
+        <logger name="Java.sql.Connection" additivity="true">
+            <level>DEBUG</level>
+        </logger>
+        <logger name="java.sql.Statement" additivity="true">
+            <level>DEBUG</level>
+        </logger>
+        <logger name="java.sql.PreparedStatement" additivity="true">
+            <level>DEBUG</level>
+        </logger>
+        <logger name="java.sql.ResultSet" additivity="true">
+            <level>DEBUG</level>
+        </logger>
+        <logger name="org.apache.mybatis.logging.commons.JakartaCommonsLoggingImpl" additivity="true">
+            <level>DEBUG</level>
+        </logger>
+
+    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
         <!--过滤掉spring和hibernate的一些无用的debug信息-->
         <logger name="org.springframework" level="INFO">
         </logger>

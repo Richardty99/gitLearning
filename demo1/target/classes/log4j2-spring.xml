@@ -9,7 +9,6 @@
     <appenders>
         <!--这个输出控制台的配置-->
         <console name="Console" target="SYSTEM_OUT">
-
             <!--ThresholdFilter指定日志消息的输出最低层次-->
             <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
             <!--输出日志的格式-->
@@ -65,6 +64,11 @@
         </RollingFile>
 
     </appenders>
+    <loggers>
+        <logger>
+
+        </logger>
+    </loggers>
     <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
     <loggers>
         <!--过滤掉spring和hibernate的一些无用的debug信息-->

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * @Auther: HX001
  * @Date: 2019/4/9 11:10
@@ -35,13 +37,13 @@ public class Result<T> {
      *
      * 功能描述: 
      *
-     * @param: 用于分页查询失败
+     * @param: 请求失败异常
      * @return: 
      * @auther: HX001
      * @date: 2019/4/9 17:01
      */
 
-    public static<T> ResponseEntity<RequestModel> getError(RequestModel requestModel){
+    public static<T> ResponseEntity<RequestModel> RequestError(RequestModel requestModel){
 
 
         return new ResponseEntity<RequestModel>(requestModel,HttpStatus.INTERNAL_SERVER_ERROR);

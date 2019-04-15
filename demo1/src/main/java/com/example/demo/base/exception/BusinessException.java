@@ -17,7 +17,7 @@ import lombok.Setter;
 public class BusinessException extends RuntimeException {
 
     @ApiModelProperty(value = "异常状态码")
-    int code;
+    Integer code;
     @ApiModelProperty(value = "异常信息")
     String msg;
 
@@ -26,8 +26,7 @@ public class BusinessException extends RuntimeException {
         this.msg = msg;
     }
 
-    public BusinessException() {
-    }
+    public BusinessException() {}
 
     public BusinessException(String msg) {
         this.msg = msg;

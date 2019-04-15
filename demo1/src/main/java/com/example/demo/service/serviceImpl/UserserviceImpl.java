@@ -9,6 +9,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public class UserserviceImpl implements UserService {
     @Autowired
     private UserDao userDao;
     @Override
-    public void selectUser(RequestModel requestModel) throws Exception {
+    public void selectUser(RequestModel requestModel) throws SQLException {
         PageHelper.startPage(requestModel.getQueryParams().getCurr_page(),requestModel.getQueryParams().getPage_size());
         List<User> list=userDao.selectUser(requestModel.getQueryParams());
         PageInfo pageInfo=new PageInfo(list);

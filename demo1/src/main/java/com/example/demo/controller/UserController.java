@@ -30,6 +30,9 @@ public class UserController extends BaseController {
     @Autowired
     private UserService userService;
 
+
+
+
     @ApiOperation(value = "分页查询所有用户",httpMethod = "GET",response = User.class)
     @ApiResponses({
             @ApiResponse(code =200,message = "操作成功",response = RequestModel.class),
@@ -38,6 +41,7 @@ public class UserController extends BaseController {
     public ResponseEntity<RequestModel> selectPageUser(RequestModel requestModel)throws Exception{
 
             userService.selectUser(requestModel);
+
             return Result.getPage(requestModel);
 
 

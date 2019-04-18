@@ -11,6 +11,7 @@ import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,8 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Api(value = "用户操作接口")
 @Slf4j
+@Validated
 @RestController
-@RequestMapping(path = "/user/")
+@RequestMapping(path = "/richard/1.0/")
 public class UserController extends BaseController {
 
     @Autowired
@@ -32,12 +34,18 @@ public class UserController extends BaseController {
 
 
 
-
-    @ApiOperation(value = "分页查询所有用户",httpMethod = "GET",response = User.class)
+    /**
+     * 功能描述: 
+     * @param: 分页查询
+     * @return: 
+     * @auther: richard
+     * @date: 2019/4/18 13:56
+     */
+    @ApiOperation(value = "分页查询所有用户",httpMethod = "GET",response = RequestModel.class)
     @ApiResponses({
             @ApiResponse(code =200,message = "操作成功",response = RequestModel.class),
     })
-    @RequestMapping(path = "/select/page/",method = RequestMethod.GET)
+    @RequestMapping(path = "user/select/page/",method = RequestMethod.GET)
     public ResponseEntity<RequestModel> selectPageUser(RequestModel requestModel)throws Exception{
 
             userService.selectUser(requestModel);

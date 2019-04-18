@@ -1,5 +1,6 @@
 package com.example.demo.base.swagger;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -33,6 +34,7 @@ public class SwaggerConfig {
      * responseMessages：全局配置responseModel 参考https://www.jianshu.com/p/4539e312ce87
      * @return
      */
+    @Bean
     public Docket createRestApi(){
         List<ResponseMessage> responseMessages=new ArrayList<>();
         responseMessages.add(new ResponseMessageBuilder().code(404).message("找不到资源").responseModel(new ModelRef("RequestModel")).build());

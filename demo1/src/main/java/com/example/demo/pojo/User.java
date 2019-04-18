@@ -40,7 +40,7 @@ public class User {
     @NotNull(groups = {AddGroup.class,UpdateGroup.class},message = "用户名称不能为空")
     @ApiModelProperty(value = "用户名称")
     private String userName;
-    @Length(min = 1 , max = 10 , message = "用户账号长度错误")
+    @Length(min = 1 , max = 10 , message = "用户账号长度错误",groups = {AddGroup.class,UpdateGroup.class})
     @NotNull(groups = {AddGroup.class,UpdateGroup.class},message = "用户账号不能为空")
     @ApiModelProperty(value = "用户账号")
     private String account;
@@ -49,15 +49,15 @@ public class User {
     private String userPassword;
     @ApiModelProperty(value = "性别，0保密，1男，2女")
     private Integer sex;
-    @Range(min = 0 , max = 200 , message = "年龄范围需在0-200之间")
+    @Range(min = 0 , max = 200 , message = "年龄范围需在0-200之间",groups = {AddGroup.class,UpdateGroup.class})
     @ApiModelProperty(value = "年龄")
     private Integer age;
-    @Past(message = "生日必须是过去的时间")
+    @Past(message = "生日必须是过去的时间",groups = {AddGroup.class,UpdateGroup.class})
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "出生日期")
     private Date birthday;
     @NotNull
-    @Pattern(regexp = "^([a-z0-9A-Z]+[-_\\\\.]?)*[a-z0-9A-Z]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\\\.)+[a-zA-Z]{2,}$" , message = "请输入正确格式的邮箱")
+    @Pattern(regexp = "^([a-z0-9A-Z]+[-_\\\\.]?)*[a-z0-9A-Z]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\\\.)+[a-zA-Z]{2,}$" , message = "请输入正确格式的邮箱",groups = {AddGroup.class,UpdateGroup.class})
     @ApiModelProperty(value = "邮箱")
     private String email;
     @ApiModelProperty(value = "登陆ip地址")
@@ -78,7 +78,7 @@ public class User {
     private Integer updateUserId;
     @ApiModelProperty(value = "更新时间")
     private Timestamp updateTime;
-    @Pattern(regexp = "^\\d{11}$")
+    @Pattern(regexp = "^\\d{11}$",groups = {AddGroup.class,UpdateGroup.class})
     @ApiModelProperty(value = "用户电话")
     private String phone;
     @ApiModelProperty(value = "账号状态 0冻结，1启用")

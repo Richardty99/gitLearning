@@ -6,14 +6,18 @@ import com.example.demo.base.controller.BaseController;
 import com.example.demo.base.pojo.RequestModel;
 import com.example.demo.pojo.User;
 import com.example.demo.service.LoginService;
-import io.swagger.annotations.Api;
+import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+
+
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @Auther: HX001
@@ -21,17 +25,45 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description:
  */
 @Api(value = "登陆接口")
+@Slf4j
+@Validated
 @RestController
-@RequestMapping(value = "/login")
+@RequestMapping(value = "/richard/1.0/")
 public class LoginController extends BaseController {
 
     @Autowired
     private LoginService loginService;
 
-    public ResponseEntity<RequestModel> login(RequestModel<User> requestModel, User user)throws Exception {
+    
+    /**
+     * 功能描述: 
+     * @param: 用户登陆接口
+     * @return: user
+     * @auther: richard
+     * @date: 2019/4/18 10:03
+     */
 
-            loginService.login(requestModel, user);
+    @ApiOperation(value = "用户登录",httpMethod = "POST",response = RequestModel.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "account" , value = "用户账号" , dataType = "String" , paramType = "query" , required = true),
+            @ApiImplicitParam(name = "password" , value = "用户密码" , dataType = "String" , paramType = "query" , required = true)
+    })
+    @ApiResponses({
+            @ApiResponse(code = 200 , message = "操作成功" , response = RequestModel.class)
+    })
+    @RequestMapping(path = "login/" , method = RequestMethod.POST)
+    public ResponseEntity<RequestModel> login(
+            @RequestBody RequestModel<User> requestModel ,
+            @NotNull
+            @RequestParam(name = "account" , required = true) String account ,
+            @NotNull
+            @RequestParam(name = "password" , required = true) String password
+    )throws Exception {
+
+            loginService.login(requestModel, account,password);
+
             session.setAttribute(BaseContants.LOGIN_USER,requestModel.getData());
+
             return Result.getSure(requestModel);
 
     }

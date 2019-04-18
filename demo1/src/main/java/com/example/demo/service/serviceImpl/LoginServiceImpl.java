@@ -24,19 +24,19 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public void login(RequestModel<User> requestModel, User user) throws SQLException {
-        User oldUser = userDao.selectUserByAccount(user.getAccount());
+    public void login(RequestModel<User> requestModel , String account , String password) throws SQLException {
+        User oldUser = userDao.selectUserByAccount(account);
         if (oldUser == null) {
             requestModel.setResultCode(ErrorMsgEnum.NO_ACCOUNT.getCode());
             requestModel.setMessage(ErrorMsgEnum.NO_ACCOUNT.getMsg());
 
         } else {
             if (oldUser.getState() == 1) {
-                if (oldUser.getUserPassword().equals(user.getUserPassword())) {
+                if (oldUser.getUserPassword().equals(password)) {
                     requestModel.setResultCode(200);
                     requestModel.setMessage("登陆成功");
-                    user.setUserPassword(null);
-                    requestModel.setData(user);
+                    oldUser.setUserPassword(null);
+                    requestModel.setData(oldUser);
                 } else {
                     throw new BusinessException(ErrorMsgEnum.ERROR_PASS);
                 }

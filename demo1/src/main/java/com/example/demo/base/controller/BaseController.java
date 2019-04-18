@@ -7,9 +7,11 @@ import com.example.demo.base.exception.BusinessException;
 import com.example.demo.base.pojo.RequestModel;
 import com.example.demo.pojo.User;
 
-import org.apache.ibatis.jdbc.SQL;
 import org.apache.log4j.Logger;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -18,7 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.ValidationException;
 import java.sql.SQLException;
+import java.util.Set;
 
 
 /**
@@ -42,10 +48,66 @@ public abstract class BaseController {
              session=req.getSession();
          }
 
+
+         /**
+          * 功能描述:
+          * @param: 参数检验异常，用于get请求
+          * @return:
+          * @auther: richard
+          * @date: 2019/4/18 10:23
+          */
+         @ExceptionHandler(ValidationException.class)
+         public ResponseEntity<RequestModel> validationExcepiton(ValidationException ve){
+             RequestModel requestModel = new RequestModel();
+             StringBuilder errorMsg = new StringBuilder();
+            if (ve instanceof ConstraintViolationException){
+                ConstraintViolationException cve =(ConstraintViolationException) ve;
+                Set<ConstraintViolation<?>> violations = cve.getConstraintViolations();
+
+                //最后一个信息不拼接逗号
+                int count = 1;
+                for (ConstraintViolation<?> item : violations){
+                    if (count == violations.size()){
+                        errorMsg.append(item.getMessage());
+                    }else {
+                        errorMsg.append(item.getMessage()).append(",");
+                    }
+                    count ++;
+                }
+            }
+             requestModel.setMessage(errorMsg.toString());
+             return Result.RequestError(requestModel);
+         }
+
+         /**
+          * 功能描述:
+          * @param: 参数检验异常
+          * @return:
+          * @auther: richard
+          * @date: 2019/4/18 10:41
+          */
+         @ExceptionHandler(MethodArgumentNotValidException.class)
+         public ResponseEntity<RequestModel> methodArgumentNotValidException(MethodArgumentNotValidException me){
+             RequestModel requestModel = new RequestModel();
+             BindingResult bindingResult = me.getBindingResult();
+             StringBuilder errorMsg = new StringBuilder();
+
+             int count = 1;
+             for (FieldError fieldError : bindingResult.getFieldErrors()){
+                 if (count == bindingResult.getFieldErrors().size()){
+                     errorMsg.append(fieldError.getDefaultMessage());
+                 }else {
+                     errorMsg.append(fieldError.getDefaultMessage()).append(",");
+                 }
+                 count ++;
+             }
+             requestModel.setMessage(errorMsg.toString());
+             return Result.RequestError(requestModel);
+         }
+
          /**
           *
           * 功能描述:
-          *
           * @param: 统一业务异常处理
           * @return:
           * @auther: HX001

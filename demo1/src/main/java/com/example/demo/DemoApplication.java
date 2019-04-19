@@ -25,6 +25,7 @@ import javax.validation.ValidatorFactory;
 @EnableSwaggerBootstrapUI
 @Configuration
 @ConditionalOnClass(SpringfoxWebMvcConfiguration.class)
+@MapperScan("com.example.demo.dao")
 @SpringBootApplication
 public class DemoApplication extends SpringBootServletInitializer implements WebMvcConfigurer {
 

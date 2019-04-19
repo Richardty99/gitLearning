@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * @Auther: HX001
@@ -24,7 +25,9 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public void login(RequestModel<User> requestModel , String account , String password) throws SQLException {
+    public RequestModel<User> login(String account, String password) throws SQLException {
+
+        RequestModel<User> requestModel = new RequestModel<User>();
         User oldUser = userDao.selectUserByAccount(account);
         if (oldUser == null) {
             requestModel.setResultCode(ErrorMsgEnum.NO_ACCOUNT.getCode());
@@ -45,6 +48,7 @@ public class LoginServiceImpl implements LoginService {
 
             }
         }
+        return requestModel;
     }
 }
 

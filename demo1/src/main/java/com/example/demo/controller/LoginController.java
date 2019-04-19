@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,10 +25,10 @@ import javax.validation.constraints.NotNull;
  * @Date: 2019/4/8 16:38
  * @Description:
  */
-@Api(value = "登陆接口")
+@Api(value = "登陆接口",tags = "登陆接口")
 @Slf4j
 @Validated
-@RestController
+@Controller
 @RequestMapping(value = "/richard/1.0/")
 public class LoginController extends BaseController {
 
@@ -43,7 +44,7 @@ public class LoginController extends BaseController {
      * @date: 2019/4/18 10:03
      */
 
-    @ApiOperation(value = "用户登录",httpMethod = "POST",response = RequestModel.class)
+    @ApiOperation(value = "用户登录",httpMethod = "GET",response = RequestModel.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "account" , value = "用户账号" , dataType = "String" , paramType = "query" , required = true),
             @ApiImplicitParam(name = "password" , value = "用户密码" , dataType = "String" , paramType = "query" , required = true)
@@ -51,20 +52,19 @@ public class LoginController extends BaseController {
     @ApiResponses({
             @ApiResponse(code = 200 , message = "操作成功" , response = RequestModel.class)
     })
-    @RequestMapping(path = "login/" , method = RequestMethod.POST)
+    @RequestMapping(path = "login/" , method = RequestMethod.GET)
     public ResponseEntity<RequestModel> login(
-            @RequestBody RequestModel<User> requestModel ,
             @NotNull
             @RequestParam(name = "account" , required = true) String account ,
             @NotNull
             @RequestParam(name = "password" , required = true) String password
     )throws Exception {
 
-            loginService.login(requestModel, account,password);
 
-            session.setAttribute(BaseContants.LOGIN_USER,requestModel.getData());
+            RequestModel<User> requestModel=loginService.login(account , password);
+
+            session.setAttribute(BaseContants.LOGIN_USER, requestModel.getData());
 
             return Result.getSure(requestModel);
-
-    }
+        }
 }

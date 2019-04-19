@@ -7,6 +7,7 @@ import com.example.demo.base.exception.BusinessException;
 import com.example.demo.base.pojo.RequestModel;
 import com.example.demo.pojo.User;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -32,10 +33,11 @@ import java.util.Set;
  * @Date: 2019/4/9 16:13
  * @Description:
  */
+@Slf4j
 @RestController
 @ControllerAdvice
 public abstract class BaseController {
-         private static final Logger log=Logger.getLogger(BaseController.class);
+
          protected HttpServletRequest request;
          protected HttpServletResponse response;
          public HttpSession session;
@@ -141,7 +143,8 @@ public abstract class BaseController {
                  requestModel.setMessage(ErrorMsgEnum.SYSTEM_ERROR.getMsg());
                  requestModel.setResultCode(ErrorMsgEnum.SYSTEM_ERROR.getCode());
              }
-             log.error(requestModel.getMessage(),ex);
+            log.error(requestModel.getMessage(),ex);
+             requestModel.setMessage(ex.getMessage());
              return Result.RequestError(requestModel);
          }
          
@@ -159,7 +162,7 @@ public abstract class BaseController {
              RequestModel requestModel =new RequestModel();
              requestModel.setMessage(ErrorMsgEnum.SQL_ERROR.getMsg());
              requestModel.setResultCode(ErrorMsgEnum.SQL_ERROR.getCode());
-             log.error(requestModel.getMessage(),se);
+            log.error(requestModel.getMessage(),se);
              return Result.RequestError(requestModel);
              
          }

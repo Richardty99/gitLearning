@@ -14,5 +14,5 @@ import java.sql.SQLException;
 
 public interface LoginService {
 
-    void login(RequestModel<User> requestModel , String account , String password)throws SQLException;
+    RequestModel<User> login( String account , String password)throws SQLException;
 }

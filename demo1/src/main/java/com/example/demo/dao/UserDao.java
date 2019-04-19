@@ -7,22 +7,24 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-@Component
+
 @Mapper
+@Component
 public interface UserDao {
-    int deleteByPrimaryKey(Integer userId);
 
-    int insert(User record);
-
-    int insertSelective(User record);
-
-    User selectByPrimaryKey(Integer userId);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
-
-    int deleteUserInIds(String userIds);
+//    int deleteByPrimaryKey(Integer userId);
+//
+//    int insert(User record);
+//
+//    int insertSelective(User record);
+//
+//    User selectByPrimaryKey(Integer userId);
+//
+//    int updateByPrimaryKeySelective(User record);
+//
+//    int updateByPrimaryKey(User record);
+//
+//    int deleteUserInIds(String userIds);
 
     User selectUserByAccount(@Param("account")String account); //根据account查询用户
 

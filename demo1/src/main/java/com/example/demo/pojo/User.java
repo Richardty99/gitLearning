@@ -1,5 +1,6 @@
 package com.example.demo.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
@@ -19,6 +20,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.groups.Default;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -54,6 +56,7 @@ public class User {
     private Integer age;
     @Past(message = "生日必须是过去的时间",groups = {AddGroup.class,UpdateGroup.class})
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "出生日期")
     private Date birthday;
     @NotNull
@@ -61,7 +64,7 @@ public class User {
     @ApiModelProperty(value = "邮箱")
     private String email;
     @ApiModelProperty(value = "登陆ip地址")
-    private Integer ip;
+    private BigInteger ip;
     @ApiModelProperty(value = "纬度")
     private BigDecimal lat;
     @ApiModelProperty(value = "经度")
@@ -71,12 +74,14 @@ public class User {
     @ApiModelProperty(value = "创建人Id")
     private Integer createUserId;
     @ApiModelProperty(value = "创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Timestamp createTime;
     @ApiModelProperty(value = "更新人名称")
     private String updateUserName;
     @ApiModelProperty(value = "更新人Id")
     private Integer updateUserId;
     @ApiModelProperty(value = "更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Timestamp updateTime;
     @Pattern(regexp = "^\\d{11}$",groups = {AddGroup.class,UpdateGroup.class})
     @ApiModelProperty(value = "用户电话")

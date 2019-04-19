@@ -1,5 +1,6 @@
 server:
-   port: 8080
+  port: 8080
+
 
 spring:
   #数据源配置
@@ -45,9 +46,6 @@ spring:
       suffix: .html
      static-path-pattern: /static/**
 
-#mybatis:
-#  mapper-locations: classpath:mapper/*.xml
-#  type-aliases-package: com.example.demo.pojo
 
 
 #页面热加载,关闭缓存
@@ -58,6 +56,11 @@ spring:
         servlet:
           content-type: text/html
 
+#mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.demo.pojo
+
 #pagehelper 分页
 pagehelper:
     helperDialect: mysql
@@ -65,4 +68,6 @@ pagehelper:
     supportMethodsArguments: true
     params: count=countSql
     row-bounds-with-count: true
-
+#    配置日志路径
+#logging:
+#  config: classpath:config/logbacnik-spring.xml

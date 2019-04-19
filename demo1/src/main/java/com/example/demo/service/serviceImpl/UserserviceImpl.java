@@ -29,4 +29,14 @@ public class UserserviceImpl implements UserService {
         PageInfo pageInfo=new PageInfo(list);
         requestModel.setData(pageInfo);
     }
+
+    @Override
+    public RequestModel<User> selectUserByAccount(String account) throws SQLException{
+        RequestModel<User> requestModel= new RequestModel<User>();
+        User user= userDao.selectUserByAccount(account);
+        requestModel.setData(userDao.selectUserByAccount(account));
+        return requestModel;
+
+
+    }
 }

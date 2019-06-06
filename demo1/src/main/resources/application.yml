@@ -45,6 +45,26 @@ spring:
       prefix: classpth:/templates/
       suffix: .html
      static-path-pattern: /static/**
+   #Redis服务器地址 单机版
+    redis:
+      #ip
+      host: 127.0.0.1
+      #redis端口
+      port: 6379
+      #redis最大重连数
+      cluster:
+        max-redirects: 3
+      #Redist服务器连接密码
+      password:
+      #最大空闲数
+      jedis:
+        pool:
+          max-idle: 5
+          max-active: 5
+          max-wait: 1000
+      timeout: 3000
+
+
 
 
 
@@ -68,6 +88,7 @@ pagehelper:
     supportMethodsArguments: true
     params: count=countSql
     row-bounds-with-count: true
-#    配置日志路径
-#logging:
-#  config: classpath:config/logbacnik-spring.xml
+
+
+
+
